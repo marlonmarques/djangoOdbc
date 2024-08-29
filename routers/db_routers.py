@@ -1,0 +1,38 @@
+from typing import Union
+
+
+class BaseRouter:
+    # this apps will read from and write on the self.db_name.
+    route_app_labels = {}
+
+    db_name = ""
+    def db_for_read(self, model, **hints) -> Union[str, None]:
+        if model._meta.app_label in self.route_app_labels:
+            return self.db_name
+        return None
+
+    def db_for_write(self, model, **hints) -> Union[str, None]:
+        if model._meta.app_label in self.route_app_labels:
+            return self.db_name
+        return None
+
+    def allow_relation(self, obj1, obj2, **hints) -> Union[bool, None]:
+        if (
+            obj1._meta.app_label in self.route_app_labels
+            or obj2._meta.app_label in self.route_app_labels
+        ):
+            return True
+        return None
+
+    def allow_migrate(
+        self, db, app_label, model_name=None, **hints
+    ) -> Union[bool, None]:
+        if app_label in self.route_app_labels:
+            return db == self.db_name
+        return None
+
+
+
+class NcmRouter(BaseRouter):
+    route_app_labels = {"local"}
+    db_name = "db_local"

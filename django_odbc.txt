@@ -1,0 +1,58 @@
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': 'Idhammar_v12_live',
+        'DSN':'f2-sql01\\idhammar',
+        'PORT':'',
+        'OPTIONS':{
+            'driver':'ODBC Driver 17 for SQL Server',
+        },
+    }
+}
+
+
+pip install mssql-django
+
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'mssql',
+            'NAME': 'mydb',
+            'USER': 'user@myserver',
+            'PASSWORD': 'password',
+            'HOST': 'myserver.database.windows.net',
+            'PORT': '',
+
+            'OPTIONS': {
+                'driver': 'ODBC Driver 17 for SQL Server',
+            },
+        },
+    }
+
+    # set this to False if you want to turn off pyodbc's connection pooling
+    DATABASE_CONNECTION_POOLING = False
+
+
+DATABASES = {
+    "default": {
+        "ENGINE": "mssql",
+        "NAME": "eHospital_DKAG_NSTL",
+        "USER": "sa",
+        "PASSWORD": "passwod",
+        "HOST": "172.16.2.20\sqlservertest",
+        "PORT": "",       # Keep it blank
+        # "PORT": "1433", # Or remove it
+        "OPTIONS": {
+            "driver": "ODBC Driver 17 for SQL Server", 
+        },
+    },
+}
+
+    # set this to False if you want to turn off pyodbc's connection pooling
+    DATABASE_CONNECTION_POOLING = False
+
+
+# configuração para multiplas databases
+DATABASE_ROUTERS = (
+    'routers.db_routers.NcmRouter',
+)
